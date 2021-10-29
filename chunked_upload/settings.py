@@ -38,8 +38,14 @@ UPLOAD_TO = getattr(settings, 'CHUNKED_UPLOAD_TO', default_upload_to)
 
 try:
     STORAGE = getattr(settings, 'CHUNKED_UPLOAD_STORAGE_CLASS', lambda: None)()
+    # Use temporary storage for chunks
+    if not STORAGE:
+        from chunked_upload.storages import TemporaryFileStorage
+        STORAGE = TemporaryFileStorage()
+
 except TypeError:
-    STORAGE = import_string(getattr(settings, 'CHUNKED_UPLOAD_STORAGE_CLASS', lambda: None))()
+    STORAGE = import_string(
+        getattr(settings, 'CHUNKED_UPLOAD_STORAGE_CLASS', lambda: None))()
 
 # Function used to encode response data. Receives a dict and return a string
 DEFAULT_ENCODER = DjangoJSONEncoder().encode
@@ -55,5 +61,7 @@ DEFAULT_MAX_BYTES = None
 MAX_BYTES = getattr(settings, 'CHUNKED_UPLOAD_MAX_BYTES', DEFAULT_MAX_BYTES)
 
 # determine the "null" and "blank" properties of "user" field in the "ChunkedUpload" model
-DEFAULT_MODEL_USER_FIELD_NULL = getattr(settings, 'CHUNKED_UPLOAD_MODEL_USER_FIELD_NULL', True)
-DEFAULT_MODEL_USER_FIELD_BLANK = getattr(settings, 'CHUNKED_UPLOAD_MODEL_USER_FIELD_BLANK', True)
+DEFAULT_MODEL_USER_FIELD_NULL = getattr(
+    settings, 'CHUNKED_UPLOAD_MODEL_USER_FIELD_NULL', True)
+DEFAULT_MODEL_USER_FIELD_BLANK = getattr(
+    settings, 'CHUNKED_UPLOAD_MODEL_USER_FIELD_BLANK', True)

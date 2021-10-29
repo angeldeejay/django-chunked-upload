@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ChunkedUpload',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('upload_id',
                  models.CharField(default=chunked_upload.models.generate_upload_id, editable=False, max_length=32, unique=True)),
                 ('file', models.FileField(max_length=255, upload_to=chunked_upload.settings.UPLOAD_TO)),

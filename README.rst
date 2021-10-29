@@ -110,7 +110,7 @@ Add any of these variables into your project settings to override them.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Storage system (should be a class).
-* Default: ``None`` (use default storage system)
+* Default: ``TemporaryFileStorage``
 
 ``CHUNKED_UPLOAD_ENCODER``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
